@@ -6,6 +6,9 @@
 
 int main()
 {
+    #ifdef _WIN32
+    SetConsoleOutputCP(CP_UTF8);
+    #endif
     srand(time(NULL));
    Game game;
    game.start();

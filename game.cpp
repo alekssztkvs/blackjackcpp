@@ -107,22 +107,22 @@ int Game::winner()
     printf("\n\n\n");
     if (player.isblackjack())
     {
-        printf("Player wins: Blackjack!\n");
+        std::cout<<"Player wins: Blackjack!\n";
         return 1;
     }
     else if (player.isoverdraw())
     {
-        printf("Player loses due to overdraw!\n");
+        std::cout<<"Player loses due to overdraw!\n";
         return 0;
     }
     else if (dealer.isoverdraw())
     {
-        printf("Player wins: dealer overdraw!\n");
+        std::cout << "Player wins: dealer overdraw!\n";
         return 1;
     }
     else if (dealer.isblackjack())
     {
-        printf("Dealer wins: Blackjack!\n");
+        std::cout << "Dealer wins: Blackjack!\n";
         return 0;
     }
     else if (player.get_total() > dealer.get_total())
