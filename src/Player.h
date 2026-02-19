@@ -33,6 +33,12 @@ class Player
         void return_bet(int);
         void plus_win();
         void set_dep(int);
+        int get_dep();
+        int get_total_wins();
+        int money_won();
+
+        //AI
+        //void ai_change_money(int);
 
 };
 

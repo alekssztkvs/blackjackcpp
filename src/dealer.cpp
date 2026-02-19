@@ -2,8 +2,8 @@
 #include "Dealer.h"
 #include <iostream>
 #ifdef WIN_32
+#define
 #include <windows.h>
-#define sleep(x) Sleep((x)*1000)
 #else
 #include <unistd.h>
 #endif

@@ -1,18 +1,19 @@
 #include "Player.h"
 #include "Safe_input.h"
+#include <cstdlib>
 #include <iostream>
 #include <iomanip>
 #ifdef WIN_32
 #include <windows.h>
 #define sleep(x) Sleep((x)*1000)
 #else
-
 #include <unistd.h>
 #endif
+
 const int BLACKJACK = 21;
 
-Player::Player() : total_score(0), has_blackjack(0), has_overdraw(0), num_aces(0), deck() {}
-Player::Player(Deck* d) : deck(d) {}
+Player::Player() : total_score(0), has_blackjack(0), has_overdraw(0), num_aces(0), win_count(0), total_win(0), deck() {}
+Player::Player(Deck* d) : deck(d), total_score(0), has_blackjack(0), has_overdraw(0), num_aces(0), win_count(0), total_win(0) {}
 
 int Player::hit()
 {
@@ -20,17 +21,21 @@ int Player::hit()
 char ans = 'a';
     while (total_score <= BLACKJACK)
     {
+        std::cout << "-------------------------------" << std::endl;
+        std::cout << "Total score is: " << total_score << std::endl;
         ans = input_yes_no("Draw another card? (y/n) : ");
         if (ans == 'n')
             return 1;
 
         sleep(1);
         Card c = deck->topdeck();
+
         if (c.cardnum() == ace)
             num_aces++;
+
         total_score += c.get_number();
         c.show_card_ascii();
-        sleep(2);
+        sleep(1);
         std::cout << "Your score now: " << total_score << std::endl;
         sleep(1);
 
@@ -42,13 +47,13 @@ char ans = 'a';
                 total_score -= get_back;
                 num_aces--;
                 std::cout << "Overdraw with Ace, score now: " << total_score << std::endl;
+                continue;
             }
             else
             {
             printf("Overdraw!\n");
             has_overdraw = true;
             }
-            return 1;
             
         }
         if (total_score == BLACKJACK)
@@ -56,6 +61,7 @@ char ans = 'a';
             printf("Blackjack!\n");
             has_blackjack = true;
             return 1;
+    
         }
     }
     return 0;
@@ -73,8 +79,8 @@ int Player::dep()
 {
     int dep_max = 5000;
     int max_bet = deposit >dep_max ? dep_max : deposit;
-    std::cout << "Money left:$" << deposit << std::endl;
-    bet = input_int("Enter your bet:$", 1, max_bet);
+    std::cout << "Money left: $" << deposit << std::endl;
+    bet = input_int("Enter your bet: $", 1, max_bet);
     deposit -= bet;
     return bet;
     
@@ -167,4 +173,29 @@ void Player::plus_win()
 void Player::set_dep(int money)
 {
     deposit = money;
+}
+
+
+
+//////////////////////AI
+
+/*
+void Player::ai_change_money(int b)
+{
+    deposit -= b;
+    if (deposit < 0)
+        deposit = 0;
+}
+*/
+int Player::get_dep()
+{
+    return deposit;
+}
+int Player::get_total_wins()
+{
+    return win_count;
+}
+int Player::money_won()
+{
+    return total_win;
 }
