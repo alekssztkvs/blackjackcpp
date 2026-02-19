@@ -17,12 +17,17 @@ class Game
         Player player;
         Dealer dealer;
         Deck deck;
+        bool need_next_round;
     public:
         Game();
-        void params();
+        void set_params();
+        void play_round();
         void start();
         int winner();
-
+        void results();
+        void determine_winner();
+        void play_until_finish();
+        
 
 };
 

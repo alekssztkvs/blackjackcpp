@@ -11,7 +11,9 @@ int main()
     #endif
     srand(time(NULL));
    Game game;
-   game.start();
+   
+    game.start();
+    game.results();
 
    return 0;
 }
