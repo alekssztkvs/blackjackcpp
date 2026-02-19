@@ -23,7 +23,6 @@ void Deck::createdeck()
 }
 void Deck::shuffledeck()
 {
-    srand(time(NULL));
 
     for (int i = SIZE - 1; i > 0; i--) {
         int k = rand() % (i + 1);
